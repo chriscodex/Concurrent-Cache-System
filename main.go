@@ -7,7 +7,7 @@ import (
 )
 
 func ExpensiveFunction(n int) int {
-	//fmt.Printf("Calculating expensive function for %d\n", n)
+	fmt.Printf("Calculating expensive function for %d\n", n)
 	time.Sleep(5 * time.Second)
 	return n
 }
@@ -68,8 +68,8 @@ func main() {
 	var wg sync.WaitGroup
 	wg.Add(len(jobs))
 	for _, element := range jobs {
-		defer wg.Done()
 		go func(job int) {
+			defer wg.Done()
 			service.Work(job)
 		}(element)
 	}
