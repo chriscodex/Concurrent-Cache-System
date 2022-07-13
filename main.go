@@ -53,3 +53,11 @@ func (s *Service) Work(job int) {
 	s.IsPending[job] = make([]chan int, 0)
 	s.Mutex.Unlock()
 }
+
+// Constructor of Service
+func NewService() *Service {
+	return &Service{
+		InProgress: make(map[int]bool),
+		IsPending:  make(map[int][]chan int),
+	}
+}
