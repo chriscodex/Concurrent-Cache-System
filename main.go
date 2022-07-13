@@ -61,3 +61,17 @@ func NewService() *Service {
 		IsPending:  make(map[int][]chan int),
 	}
 }
+
+func main() {
+	service := NewService()
+	jobs := []int{3, 4, 5, 5, 4, 8, 8, 8}
+	var wg sync.WaitGroup
+	wg.Add(len(jobs))
+	for _, element := range jobs {
+		defer wg.Done()
+		go func(job int) {
+			service.Work(job)
+		}(element)
+	}
+	wg.Wait()
+}
